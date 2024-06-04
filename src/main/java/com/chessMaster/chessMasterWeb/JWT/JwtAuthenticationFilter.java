@@ -12,9 +12,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
+
+//Se realiza el filtro para el token desde la autentiacion hasta la extracción de el.
+
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
-    //realiza todos los filtros relacionados al token.
+    //realiza todos los filtros relacionados al token. Metodo por default.
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         final String token = getTokenFromRequest(request);
