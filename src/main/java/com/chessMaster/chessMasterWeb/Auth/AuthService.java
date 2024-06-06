@@ -5,6 +5,8 @@ import com.chessMaster.chessMasterWeb.UserModel.Role;
 import com.chessMaster.chessMasterWeb.UserModel.User;
 import com.chessMaster.chessMasterWeb.UserModel.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,10 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private  final UserRepository userRepository;
     private final JwtService jwtservice;
+    private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     public AuthResponse login(LoginRequest request) {
-        return null;
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
     }
 
     public AuthResponse register(RegisterRequest request) {
