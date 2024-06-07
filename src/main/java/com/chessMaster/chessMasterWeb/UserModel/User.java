@@ -20,8 +20,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Integer id;
+    @Basic
     @Column (nullable = false)
     String username;
+    @Column(nullable = false)
     String password;
     String firstname;
     String lastname;
@@ -46,11 +48,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
     }
 }

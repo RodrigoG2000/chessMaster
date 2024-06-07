@@ -2,6 +2,7 @@ package com.chessMaster.chessMasterWeb.Config;
 import com.chessMaster.chessMasterWeb.JWT.JwtAuthenticationFilter;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,12 +19,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 //proteger las api y liberar los endpoint.
 
 public class SecurityConfig {
+    @Autowired
     private final AuthenticationProvider authProvider;
+    @Autowired
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+
 
         return httpSecurity
                 .csrf(csrf ->
@@ -33,7 +37,8 @@ public class SecurityConfig {
                                 .requestMatchers("/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .sessionManagement(sessionManager -> sessionManager
+                .sessionManagement(sessionManager ->
+                        sessionManager
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

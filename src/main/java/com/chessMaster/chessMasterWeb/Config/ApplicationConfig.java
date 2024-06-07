@@ -35,15 +35,15 @@ public class ApplicationConfig {
          authenticationProvider.setPasswordEncoder(passwordEncoder());
          return authenticationProvider;
      }
-
-     @Bean
-     public UserDetailsService userDetailService(){
-        return  username -> userRepository.findByUsername(username)
-                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
-     }
-
      @Bean
      public PasswordEncoder passwordEncoder(){
          return new BCryptPasswordEncoder();
      }
+    @Bean
+    public UserDetailsService userDetailService(){
+        return  username -> userRepository.findByUsername(username)
+                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+    }
 }
+
+
